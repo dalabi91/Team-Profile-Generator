@@ -9,6 +9,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
+const { default: generate } = require("@babel/generator");
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 
@@ -119,11 +120,174 @@ class Prompt {
               // Send user back to the menu for more input
               this.question();
             });
+
           // Similar prompts and actions for Engineer and Intern
         } else if (employeeType === "Engineer") {
+          inquirer
+            .prompt([
+              //Name
+              {
+                type: "input",
+                name: "name",
+                message: "Please enter engineer's name",
+                validate: (nameInput) => {
+                  if (nameInput) {
+                    return true;
+                  } else {
+                    console.log("Please enter the correct engineer's name!");
+                    return false;
+                  }
+                },
+              },
+
+              {
+                type: "number",
+                name: "id",
+                message: "Please enter engineer's id",
+                validate: (idInput) => {
+                  if (idInput) {
+                    return true;
+                  } else {
+                    console.log(
+                      "Please enter the correct engineer's id, this should be a number!"
+                    );
+                    return false;
+                  }
+                },
+              },
+
+              //Email address
+              {
+                type: "input",
+                name: "email",
+                message: "Please enter engineer's email",
+                validate: (emailInput) => {
+                  if (emailInput) {
+                    return true;
+                  } else {
+                    console.log("Please enter the correct engineer's email!");
+                    return false;
+                  }
+                },
+              },
+
+              //Office number
+              {
+                type: "number",
+                name: "officeNumber",
+                message: "Please enter engineer's office Number",
+                validate: (idInput) => {
+                  if (idInput) {
+                    return true;
+                  } else {
+                    console.log(
+                      "Please enter the correct engineer's office Number, this should be a number!"
+                    );
+                    return false;
+                  }
+                },
+              },
+            ])
+            //pushes engineer;s data into teamInfo array
+            .then((dataTemplate) => {
+              // Create a new Manager object and push it to teamInfo Array
+              const newEngineer = new Engineer(
+                dataTemplate.name,
+                dataTemplate.id,
+                dataTemplate.email,
+                dataTemplate.officeNumber
+              );
+              this.teamInfo.push(newEngineer);
+              // Send user back to the menu for more input
+              this.question();
+            });
         } else if (employeeType === "Intern") {
+          inquirer
+            .prompt([
+              //Name
+              {
+                type: "input",
+                name: "name",
+                message: "Please enter Intern's name",
+                validate: (nameInput) => {
+                  if (nameInput) {
+                    return true;
+                  } else {
+                    console.log("Please enter the correct Intern's name!");
+                    return false;
+                  }
+                },
+              },
+
+              {
+                type: "number",
+                name: "id",
+                message: "Please enter Intern's id",
+                validate: (idInput) => {
+                  if (idInput) {
+                    return true;
+                  } else {
+                    console.log(
+                      "Please enter the correct Intern's id, this should be a number!"
+                    );
+                    return false;
+                  }
+                },
+              },
+
+              //Email address
+              {
+                type: "input",
+                name: "email",
+                message: "Please enter Intern's email",
+                validate: (emailInput) => {
+                  if (emailInput) {
+                    return true;
+                  } else {
+                    console.log("Please enter the correct Intern's email!");
+                    return false;
+                  }
+                },
+              },
+
+              //Office number
+              {
+                type: "number",
+                name: "officeNumber",
+                message: "Please enter Intern's office Number",
+                validate: (idInput) => {
+                  if (idInput) {
+                    return true;
+                  } else {
+                    console.log(
+                      "Please enter the correct Intern's office Number, this should be a number!"
+                    );
+                    return false;
+                  }
+                },
+              },
+            ])
+            //pushes intern's data into teamInfo array
+            .then((dataTemplate) => {
+              // Create a new Manager object and push it to teamInfo Array
+              const newIntern = new Intern(
+                dataTemplate.name,
+                dataTemplate.id,
+                dataTemplate.email,
+                dataTemplate.officeNumber
+              );
+              this.teamInfo.push(newIntern);
+              // Send user back to the menu for more input
+              this.question();
+            });
         } else if (employeeType === "I finished entering my team info") {
           // Generate HTML page based on teamArray and write it to a file
+          const htmlPage = generateHtml(this.getTeamInfo());
+          fs.writeFile(`./lib/generatedIndex.html`, htmlPage, (err) =>
+            err
+              ? console.log(err)
+              : console.log("HTML file has been created in the lib/folder")
+          );
         }
       });
   }

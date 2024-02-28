@@ -4,12 +4,12 @@ const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-
+//Defining the output directory and file path for the generated HTML
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-
+//Importing the render function for generating HTML from employee data
 const render = require("./src/page-template.js");
-const { default: generate } = require("@babel/generator");
+// const { default: generate } = require("@babel/generator");
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 
@@ -108,13 +108,13 @@ class Prompt {
                 },
               },
             ])
-            .then((dataTemplate) => {
+            .then((managerData) => {
               // Create a new Manager object and push it to teamInfo Array
               const newManager = new Manager(
-                dataTemplate.name,
-                dataTemplate.id,
-                dataTemplate.email,
-                dataTemplate.officeNumber
+                managerData.name,
+                managerData.id,
+                managerData.email,
+                managerData.officeNumber
               );
               this.teamInfo.push(newManager);
               // Send user back to the menu for more input
@@ -189,13 +189,13 @@ class Prompt {
               },
             ])
             //pushes engineer;s data into teamInfo array
-            .then((dataTemplate) => {
+            .then((engineerData) => {
               // Create a new Manager object and push it to teamInfo Array
               const newEngineer = new Engineer(
-                dataTemplate.name,
-                dataTemplate.id,
-                dataTemplate.email,
-                dataTemplate.officeNumber
+                engineerData.name,
+                engineerData.id,
+                engineerData.email,
+                engineerData.officeNumber
               );
               this.teamInfo.push(newEngineer);
               // Send user back to the menu for more input
@@ -268,13 +268,13 @@ class Prompt {
               },
             ])
             //pushes intern's data into teamInfo array
-            .then((dataTemplate) => {
+            .then((internData) => {
               // Create a new Manager object and push it to teamInfo Array
               const newIntern = new Intern(
-                dataTemplate.name,
-                dataTemplate.id,
-                dataTemplate.email,
-                dataTemplate.officeNumber
+                internData.name,
+                internData.id,
+                internData.email,
+                internData.officeNumber
               );
               this.teamInfo.push(newIntern);
               // Send user back to the menu for more input
@@ -283,7 +283,7 @@ class Prompt {
         } else if (employeeType === "I finished entering my team info") {
           // Generate HTML page based on teamArray and write it to a file
           const htmlPage = render(this.getTeamInfo());
-          fs.writeFile(`./lib/generatedIndex.html`, htmlPage, (err) =>
+          fs.writeFile(outputPath, htmlPage, (err) =>
             err
               ? console.log(err)
               : console.log("HTML file has been created in the lib/folder")
@@ -297,4 +297,4 @@ class Prompt {
 const prompt = new Prompt();
 prompt.question();
 
-module.exports = Prompt;
+// module.exports = Prompt;

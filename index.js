@@ -13,7 +13,7 @@ const render = require("./src/page-template.js");
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 
-this.teamInfo = []; //initialize empty array to store team members info
+const teamInfo = []; //initialize empty array to store team members info
 
 // questions for Manager details
 function managerPrompt() {
@@ -91,9 +91,9 @@ function managerPrompt() {
         managerData.email,
         managerData.officeNumber
       );
-      this.teamInfo.push(newManager);
+      teamInfo.push(newManager);
       // Send user back to the menu for more input
-      this.promptUserType();
+      promptUserType();
     });
 }
 
@@ -110,11 +110,12 @@ function promptUserType() {
     ])
     .then((response) => {
       // call the correct function based on user choice
-      switch (response.menu) {
-        case "Add an engineer":
+      console.log(response.employerType);
+      switch (response.employerType) {
+        case "Engineer":
           engineerPrompt();
           break;
-        case "Add an intern":
+        case "Intern":
           internPrompt();
           break;
         case "I finished entering my team info":
@@ -200,9 +201,9 @@ function engineerPrompt() {
         engineerData.email,
         engineerData.officeNumber
       );
-      this.teamInfo.push(newEngineer);
+      teamInfo.push(newEngineer);
       // Send user back to the menu for more input
-      this.promptUserType();
+      promptUserType();
     });
 }
 function internPrompt() {
@@ -280,14 +281,14 @@ function internPrompt() {
         internData.email,
         internData.officeNumber
       );
-      this.teamInfo.push(newIntern);
+      teamInfo.push(newIntern);
       // Send user back to the menu for more input
-      this.promptUserType();
+      promptUserType();
     });
 }
 // Generate HTML page based on teamArray and write it to a file
 function generateHTML() {
-  const htmlPage = render(this.teamInfo());
+  const htmlPage = render(teamInfo);
   fs.writeFile(outputPath, htmlPage, (err) =>
     err
       ? console.log(err)

@@ -282,7 +282,7 @@ class Prompt {
             });
         } else if (employeeType === "I finished entering my team info") {
           // Generate HTML page based on teamArray and write it to a file
-          const htmlPage = generateHtml(this.getTeamInfo());
+          const htmlPage = render(this.getTeamInfo());
           fs.writeFile(`./lib/generatedIndex.html`, htmlPage, (err) =>
             err
               ? console.log(err)
@@ -293,8 +293,8 @@ class Prompt {
   }
 }
 
-// Activates prompts in CLI
+// Activates prompts in
 const prompt = new Prompt();
-prompt.questions();
+prompt.question();
 
 module.exports = Prompt;

@@ -104,13 +104,8 @@ function promptUserType() {
       {
         type: "list",
         name: "employerType",
-        message: "Select employer type to add to team?",
-        choices: [
-          "Manager",
-          "Engineer",
-          "Intern",
-          "I finished entering my team info",
-        ],
+        message: "Select employer type you want to add to the team?",
+        choices: ["Engineer", "Intern", "I finished entering my team info"],
       },
     ])
     .then((response) => {

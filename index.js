@@ -110,7 +110,6 @@ function promptUserType() {
     ])
     .then((response) => {
       // call the correct function based on user choice
-      console.log(response.employerType);
       switch (response.employerType) {
         case "Engineer":
           engineerPrompt();

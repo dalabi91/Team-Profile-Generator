@@ -257,15 +257,15 @@ function internPrompt() {
 
       //Office number
       {
-        type: "number",
+        type: "input",
         name: "officeNumber",
-        message: "Please enter Intern's office Number",
+        message: "Please enter Intern's school",
         validate: (idInput) => {
           if (idInput) {
             return true;
           } else {
             console.log(
-              "Please enter the correct Intern's office Number, this should be a number!"
+              "Please enter the correct Intern's school, this should be a number!"
             );
             return false;
           }

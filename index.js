@@ -176,16 +176,14 @@ function engineerPrompt() {
 
       //Office number
       {
-        type: "number",
-        name: "officeNumber",
-        message: "Please enter engineer's office Number",
+        type: "input",
+        name: "github",
+        message: "Please enter engineer's github username",
         validate: (idInput) => {
           if (idInput) {
             return true;
           } else {
-            console.log(
-              "Please enter the correct engineer's office Number, this should be a number!"
-            );
+            console.log("Please enter the correct engineer's github username!");
             return false;
           }
         },
@@ -198,7 +196,7 @@ function engineerPrompt() {
         engineerData.name,
         engineerData.id,
         engineerData.email,
-        engineerData.officeNumber
+        engineerData.github
       );
       teamInfo.push(newEngineer);
       // Send user back to the menu for more input

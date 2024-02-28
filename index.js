@@ -42,11 +42,82 @@ class Prompt {
         if (employeeType === "Manager") {
           inquirer
             .prompt([
-              // Prompts for Manager details
+              // questions for Manager details
+              //Name
+              {
+                type: "List",
+                name: "name",
+                message: "Please enter manager's name",
+                validate: (nameInput) => {
+                  if (nameInput) {
+                    return true;
+                  } else {
+                    console.log("Please enter manager's name!");
+                    return false;
+                  }
+                },
+              },
+
+              //Employee ID
+              {
+                type: "number",
+                name: "id",
+                message: "Please enter manager's id",
+                validate: (idInput) => {
+                  if (idInput) {
+                    return true;
+                  } else {
+                    console.log(
+                      "Please enter the correct manager's id, this should be a number!"
+                    );
+                    return false;
+                  }
+                },
+              },
+
+              //Email address
+              {
+                type: "input",
+                name: "email",
+                message: "Please enter manager's email",
+                validate: (emailInput) => {
+                  if (emailInput) {
+                    return true;
+                  } else {
+                    console.log("Please enter the correct manager's email!");
+                    return false;
+                  }
+                },
+              },
+
+              //Office number
+              {
+                type: "number",
+                name: "officeNumber",
+                message: "Please enter manager's office Number",
+                validate: (idInput) => {
+                  if (idInput) {
+                    return true;
+                  } else {
+                    console.log(
+                      "Please enter the correct manager's office Number, this should be a number!"
+                    );
+                    return false;
+                  }
+                },
+              },
             ])
             .then((dataTemplate) => {
               // Create a new Manager object and push it to teamInfo Array
+              const newManager = new Manager(
+                dataTemplate.name,
+                dataTemplate.id,
+                dataTemplate.email,
+                dataTemplate.officeNumber
+              );
+              this.teamInfo.push(newManager);
               // Send user back to the menu for more input
+              this.question();
             });
           // Similar prompts and actions for Engineer and Intern
         } else if (employeeType === "Engineer") {
@@ -57,3 +128,9 @@ class Prompt {
       });
   }
 }
+
+// Activates prompts in CLI
+const prompt = new Prompt();
+prompt.questions();
+
+module.exports = Prompt;

@@ -45,13 +45,3 @@ test('getRole() should return "Employee"', () => {
   const e = new Employee("Alice", 1, "test@test.com");
   expect(e.getRole()).toBe(testValue);
 });
-
-// describe('EMPLOYEE SUITE', ()=> {
-
-//   it('Should create an Employee class', () => {
-//     const e = new Employee();
-//     expect(typeof(e)).toBe("object");
-//   })
-//   it ('Should retrieve the employees name',() => {})
-
-// })

@@ -15,39 +15,6 @@ const render = require("./src/page-template.js");
 
 this.teamInfo = []; //initialize empty array to store team members info
 
-function promptUserType() {
-  inquirer
-    .prompt([
-      //employer type
-      {
-        type: "list",
-        name: "employerType",
-        message: "Select employer type to add to team?",
-        choices: [
-          "Manager",
-          "Engineer",
-          "Intern",
-          "I finished entering my team info",
-        ],
-      },
-    ])
-    .then((response) => {
-      // call the correct function based on user choice
-      switch (response.menu) {
-        case "Add an engineer":
-          engineerPrompt();
-          break;
-        case "Add an intern":
-          internPrompt();
-          break;
-        case "I finished entering my team info":
-          // Generate the HTML and finish the process
-          generateHTML();
-          break;
-      }
-    });
-}
-
 // questions for Manager details
 function managerPrompt() {
   inquirer
@@ -130,6 +97,38 @@ function managerPrompt() {
     });
 }
 
+function promptUserType() {
+  inquirer
+    .prompt([
+      //employer type
+      {
+        type: "list",
+        name: "employerType",
+        message: "Select employer type to add to team?",
+        choices: [
+          "Manager",
+          "Engineer",
+          "Intern",
+          "I finished entering my team info",
+        ],
+      },
+    ])
+    .then((response) => {
+      // call the correct function based on user choice
+      switch (response.menu) {
+        case "Add an engineer":
+          engineerPrompt();
+          break;
+        case "Add an intern":
+          internPrompt();
+          break;
+        case "I finished entering my team info":
+          // Generate the HTML and finish the process
+          generateHTML();
+          break;
+      }
+    });
+}
 // Similar prompts and actions for Engineer and Intern
 function engineerPrompt() {
   inquirer
